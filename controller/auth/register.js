@@ -15,8 +15,8 @@ const register = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(body.password, salt);
     const dbRes = await query(
-      "INSERT INTO users (email, username, password, is_admin) VALUES ($1, $2, $3, $4)",
-      [body.email, body.username, hashedPassword, body.isAdmin]
+      "INSERT INTO users (email, username, password) VALUES ($1, $2, $3)",
+      [body.email, body.username, hashedPassword]
     );
 
     // Retrieve the inserted user from the database
@@ -27,12 +27,12 @@ const register = async (req, res) => {
       id: user.id,
       username: user.username,
       email: user.email,
-      isAdmin: user.is_admin,
+      
     });
 
     const serverRes = {
       message: "A user created",
-      data: user,
+      data: user.rows,
       jwt: token,
     };
     res.status(200).json(serverRes);

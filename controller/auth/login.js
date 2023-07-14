@@ -31,7 +31,7 @@ const login = async (req, res) => {
           id: user.id,
           username: user.username,
           email: user.email,
-          isAdmin: user.is_admin,
+        
         });
 
         const serverRes = {
