@@ -19,21 +19,13 @@ const register = async (req, res) => {
       [body.email, body.username, hashedPassword]
     );
 
-    // Retrieve the inserted user from the database
-    const user = await query("SELECT * FROM users WHERE email = $1", [body.email]);
-
-    // Generate JWT token
-    const token = generateAccessToken({
-      id: user.id,
-      username: user.username,
-      email: user.email,
+    
       
-    });
+  
 
     const serverRes = {
       message: "A user created",
-      data: user.rows,
-      jwt: token,
+      data: user
     };
     res.status(200).json(serverRes);
   } catch (error) {
