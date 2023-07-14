@@ -25,7 +25,7 @@ const register = async (req, res) => {
 
     const serverRes = {
       message: "A user created",
-      data: user
+      
     };
     res.status(200).json(serverRes);
   } catch (error) {
