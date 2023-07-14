@@ -7,7 +7,7 @@ const db = new Pool({
   user: process.env.DB_USER || "postgres",
   database: process.env.DB_DATABASE || "mybuku",
   password: process.env.DB_PASSWORD || "6568",
-  ssl: process.env.DB_SSL || false,
+  ssl: process.env.DB_SSL || true,
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
