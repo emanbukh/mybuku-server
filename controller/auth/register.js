@@ -1,12 +1,8 @@
 import query from "../../db/index.js";
-import jwt from "jsonwebtoken";
+
 import bcrypt from "bcryptjs";
 
-const TOKEN_SECRET = "25VNclweOQgzAk0bmzBdTQoYnqshZwll";
 
-const generateAccessToken = (userData) => {
-  return jwt.sign(userData, TOKEN_SECRET, { expiresIn: "1800s" });
-};
 
 const register = async (req, res) => {
   try {
