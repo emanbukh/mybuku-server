@@ -2,7 +2,7 @@ import query from "../../db/index.js";
 
 const listAllBook = async (req, res) => {
   const dbRes = await query(
-    "SELECT id, title, price, description status FROM books"
+    "SELECT id, title, price, description FROM books"
   );
   const serverRes = {
     message: `${dbRes.rowCount} books are found`,
