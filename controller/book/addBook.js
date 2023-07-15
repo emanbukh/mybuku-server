@@ -12,7 +12,8 @@ const addBook = async (req, res) => {
       message: "A book created",
     };
     res.status(200).json(serverRes);
-  } catch (error) {
+  }catch (error) {
+    console.error(error); // Log the error object
     const { name, table, constraint, detail } = error;
     const serverRes = {
       message: detail,
