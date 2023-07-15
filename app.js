@@ -10,6 +10,14 @@ import isAuthenticated from "./middleware/isAuthenticated.js";
 import logout from "./controller/auth/logout.js";
 import isAdmin from "./middleware/isAdmin.js";
 import checkStatus from "./controller/health/checkStatus.js";
+import editUser from "./controller/user/editUser.js";
+import deleteUser from "./controller/user/deleteUser.js";
+import resetUserPassword from "./controller/user/resetUserPassword.js";
+import addBook from "./controller/book/addBook.js";
+import editBook from "./controller/book/editBook.js";
+import deleteBook from "./controller/book/deleteBook.js";
+import viewBook from "./controller/book/viewBook.js";
+import listAllBook from "./controller/book/listAllBook.js";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +28,8 @@ app.get("/", checkStatus);
 app.get("/public", (req, res) =>
   res.status(200).json({ message: "Public route" })
 );
+
+// api auth
 app.post(
   "/api/register",
   check("email").notEmpty().bail().isEmail().bail(),
@@ -43,8 +53,24 @@ app.get("/private", isAuthenticated, (req, res) =>
 app.get("/admin", isAuthenticated, isAdmin, (req, res) =>
   res.status(200).json({ message: "Admin route", user: req.user })
 );
+
+// api users
 app.get("/api/users", isAuthenticated, listAll);
 app.get("/api/users/:username", isAuthenticated, view);
+app.put("/api/users/:username", isAuthenticated, editUser);
+app.put(
+  "/api/users/resetpassword/:username",
+  isAuthenticated,
+  resetUserPassword
+);
+app.delete("/api/users/:username", isAuthenticated, deleteUser);
 app.put("/api/logout", isAuthenticated, logout);
+
+// api books
+app.post("/api/books/add", isAuthenticated, addBook);
+app.put("/api/books/:id", isAuthenticated, editBook);
+app.delete("/api/books/:id", isAuthenticated, deleteBook);
+app.get("/api/books/:id", isAuthenticated, viewBook);
+app.get("/api/books", isAuthenticated, listAllBook);
 
 export default app;
