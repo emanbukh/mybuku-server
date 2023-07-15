@@ -5,7 +5,7 @@ const addBook = async (req, res) => {
     const body = req.body;
 
     const dbRes = await query(
-      "INSERT INTO projects (title, price, description) VALUES ($1, $2, $3)",
+      "INSERT INTO books (title, price, description) VALUES ($1, $2, $3)",
       [body.title, body.price, body.description]
     );
     const serverRes = {
